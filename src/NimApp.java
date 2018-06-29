@@ -1,6 +1,9 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class NimApp extends Application {
@@ -10,7 +13,12 @@ public class NimApp extends Application {
         primaryStage.setTitle("Nim");
 
         Label welcomeLabel = new Label("Welcome to Nim");
-        Scene welcomeScene = new Scene(welcomeLabel, 400, 200);
+        Button onePlayerButton = new Button("One Player");
+        Button twoPlayerButton = new Button("Two Players");
+
+        HBox buttonBox = new HBox(50, onePlayerButton, twoPlayerButton);
+        VBox container = new VBox(10, welcomeLabel, buttonBox);
+        Scene welcomeScene = new Scene(container, 400, 200);
         primaryStage.setScene(welcomeScene);
 
         primaryStage.show();
