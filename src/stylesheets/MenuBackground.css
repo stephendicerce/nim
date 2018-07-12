@@ -1,0 +1,6 @@
+#pane{
+    -fx-background-image: url("/images/coins_edited.jpg");
+    -fx-background-repeat: none;
+    -fx-background-size: 96 112;
+    -fx-background-position: bottom left;
+}
