@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9097d7c5-e6da-40d4-963f-2ed0d7ed81e7" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/NimApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NimApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameDebug.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameDebug.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -38,8 +38,8 @@
       <file leaf-file-name="GameDebug.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameDebug.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="28" column="84" selection-start-line="28" selection-start-column="84" selection-end-line="28" selection-end-column="84" />
+            <state relative-caret-position="358">
+              <caret line="45" column="74" selection-start-line="45" selection-start-column="74" selection-end-line="45" selection-end-column="74" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -262,15 +262,16 @@
       <option name="presentableId" value="Default" />
       <updated>1530283757116</updated>
       <workItem from="1530283759024" duration="11269000" />
-      <workItem from="1531156889556" duration="4206000" />
+      <workItem from="1531156889556" duration="5468000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15475000" />
+    <option name="totallyTimeSpent" value="16737000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="18" y="22" width="1280" height="746" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -350,8 +351,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameDebug.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="28" column="84" selection-start-line="28" selection-start-column="84" selection-end-line="28" selection-end-column="84" />
+        <state relative-caret-position="358">
+          <caret line="45" column="74" selection-start-line="45" selection-start-column="74" selection-end-line="45" selection-end-column="74" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
