@@ -7,6 +7,9 @@ public class NimGame {
     private boolean isGameOver;
 
 
+    /**
+     * Constructor for the game. Creates 12 coins and sets up everything for either a 1 player game or 2 player
+     */
     NimGame() {
         coins = new boolean[12];
         int i = 0;
@@ -21,17 +24,24 @@ public class NimGame {
         isGameOver = false;
     }
 
+    /**
+     * returns the boolean value that determines whether or not the game is over or not
+     * @return whether or not the game is over
+     */
     boolean getIsGameOver() {
         return isGameOver;
     }
 
+    /**
+     * removes a coin from the collection of coins
+     */
     private void removeCoin() {
         if(nextCoinPosition>=0 && nextCoinPosition<12) {
             coins[nextCoinPosition] = false;
             if (nextCoinPosition != 11) {
                 ++nextCoinPosition;
             } else {
-                System.out.println("The Computer has won the game!");
+                //System.out.println("The Computer has won the game!");
                 isGameOver = true;
             }
         } else {
@@ -39,6 +49,12 @@ public class NimGame {
         }
     }
 
+    /**
+     * removes a set number of coins from the collection by calling private method: removeCoin()
+     * also tells the AI how many coins were taken from the collection so the AI can make a decision of
+     * how many coins to take itself
+     * @param numberOfCoins the number of coins to be removed from the collection of coins
+     */
     void removeCoins(int numberOfCoins) {
         //System.out.println("THE NUMBER OF COINS BEING TAKEN IS " + numberOfCoins);
         if(numberOfCoins<4 && numberOfCoins>0) {
@@ -50,6 +66,10 @@ public class NimGame {
         }
     }
 
+    /**
+     * The brain of the AI, however many coins the AI saw the user take will determine how many coins the AI
+     * decides to take
+     */
     void aiTurn() {
         //System.out.println("The ai saw you took " + aiCounter + " coin(s)");
         switch (aiCounter) {
@@ -73,6 +93,9 @@ public class NimGame {
         aiCounter = 0;
     }
 
+    /**
+     * visually shows how many coins are left in the collection
+     */
     void showCoinsLeft() {
         for(boolean coin: coins) {
             System.out.print("|");

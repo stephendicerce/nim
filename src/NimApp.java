@@ -35,6 +35,13 @@ public class NimApp extends Application {
         primaryStage.setScene(welcomeScene);
 
 
+        //One Player Scene
+        Image userImage = new Image("/images/user_image.png");
+        Image aiImage = new Image("/images/ai_image.jpg");
+
+        
+
+
         primaryStage.show();
     }
 
