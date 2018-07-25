@@ -70,27 +70,33 @@ public class NimGame {
      * The brain of the AI, however many coins the AI saw the user take will determine how many coins the AI
      * decides to take
      */
-    void aiTurn() {
+    int aiTurn() {
         //System.out.println("The ai saw you took " + aiCounter + " coin(s)");
+        int numberOfCoins = 0;
         switch (aiCounter) {
             case 1:
-                removeCoins(3);
+                numberOfCoins = 3;
+                removeCoins(numberOfCoins);
                 System.out.println("The Computer has taken 3 coins.");
                 break;
             case 2:
-                removeCoins(2);
+                numberOfCoins = 2;
+                removeCoins(numberOfCoins);
                 System.out.println("The Computer has taken 2 coins.");
                 break;
             case 3:
-                removeCoins(1);
+                numberOfCoins = 1;
+                removeCoins(numberOfCoins);
                 System.out.println("The Computer has taken 1 coin.");
                 break;
             default:
-                removeCoins(4);
+                numberOfCoins = 4;
+                removeCoins(numberOfCoins);
                 System.out.println("The Computer decided to cheat and took 4 coins.");
                 break;
         }
         aiCounter = 0;
+        return numberOfCoins;
     }
 
     /**
