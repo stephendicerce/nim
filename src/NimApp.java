@@ -81,15 +81,18 @@ public class NimApp extends Application {
         Text numberOfCoinsText = new Text("Number Of Coins Taken:");
         Text coins = new Text();
         coins.setText(""+numberOfCoins);
+        Text invalidSelectionText = new Text("You can only select between 1-3 coins");
+        invalidSelectionText.setVisible(false);
 
         //components positioning
         HBox avatarBox = new HBox(100, userImageView, aiImageView);
         HBox textBox = new HBox(5, numberOfCoinsText, coins);
         HBox singlePlayerButtonBox = new HBox(100, textBox, endTurnButton);
+        VBox textButtonContainerBox = new VBox(5, singlePlayerButtonBox, invalidSelectionText);
         HBox coinBox1 = new HBox(50, coinOneView, coinTwoView, coinThreeView, coinFourView, coinFiveView, coinSixView);
         HBox coinBox2 = new HBox(50, coinSevenView, coinEightView, coinNineView, coinTenView, coinElevenView, coinTwelveView);
         VBox vCoinBox = new VBox(25, coinBox1, coinBox2);
-        VBox singlePlayerBox = new VBox(50, avatarBox, singlePlayerButtonBox, vCoinBox);
+        VBox singlePlayerBox = new VBox(50, avatarBox, textButtonContainerBox, vCoinBox);
 
         avatarBox.setAlignment(Pos.CENTER);
         singlePlayerButtonBox.setAlignment(Pos.CENTER);
@@ -97,22 +100,141 @@ public class NimApp extends Application {
         coinBox2.setAlignment(Pos.CENTER);
         vCoinBox.setAlignment(Pos.CENTER);
         singlePlayerBox.setAlignment(Pos.CENTER);
+        textButtonContainerBox.setAlignment(Pos.CENTER);
 
         //button actions
         endTurnButton.setOnAction(event -> {
             game.removeCoins(numberOfCoins);
-            game.aiTurn();
+            int aiCoins = game.aiTurn();
+
+            for(int i=0; i<aiCoins; ++i) {
+                if(coinOneView.isVisible())
+                    coinOneView.setVisible(false);
+                else if(coinTwoView.isVisible())
+                    coinTwoView.setVisible(false);
+                else if(coinThreeView.isVisible())
+                    coinThreeView.setVisible(false);
+                else if(coinFourView.isVisible())
+                    coinFourView.setVisible(false);
+                else if(coinFiveView.isVisible())
+                    coinFiveView.setVisible(false);
+                else if(coinSixView.isVisible())
+                    coinSixView.setVisible(false);
+                else if(coinSevenView.isVisible())
+                    coinSevenView.setVisible(false);
+                else if(coinEightView.isVisible())
+                    coinEightView.setVisible(false);
+                else if(coinNineView.isVisible())
+                    coinNineView.setVisible(false);
+                else if(coinTenView.isVisible())
+                    coinTenView.setVisible(false);
+                else if(coinElevenView.isVisible())
+                    coinElevenView.setVisible(false);
+                else if(coinTwelveView.isVisible())
+                    coinTwelveView.setVisible(false);
+            }
+
             resetNumberOfCoins();
+            coins.setText(""+numberOfCoins);
+            invalidSelectionText.setVisible(false);
+
+            //do end game 
         });
 
         //coin actions
         coinOneView.setOnMouseClicked(event -> {
-            if(checkTurnStatus()) {
-                coinOneView.setVisible(false);
-                increaseNumberOfCoins();
+            if(takeCoin(coinOneView)) {
                 coins.setText(""+numberOfCoins);
             } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
 
+        coinTwoView.setOnMouseClicked(event -> {
+            if(takeCoin(coinTwoView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinThreeView.setOnMouseClicked(event -> {
+            if(takeCoin(coinThreeView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinFourView.setOnMouseClicked(event -> {
+            if(takeCoin(coinFourView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinFiveView.setOnMouseClicked(event -> {
+            if(takeCoin(coinFiveView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinSixView.setOnMouseClicked(event -> {
+            if(takeCoin(coinSixView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinSevenView.setOnMouseClicked(event -> {
+            if(takeCoin(coinSevenView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinEightView.setOnMouseClicked(event -> {
+            if(takeCoin(coinEightView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinNineView.setOnMouseClicked(event -> {
+            if(takeCoin(coinNineView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinTenView.setOnMouseClicked(event -> {
+            if(takeCoin(coinTenView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinElevenView.setOnMouseClicked(event -> {
+            if(takeCoin(coinElevenView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
+            }
+        });
+
+        coinTwelveView.setOnMouseClicked(event -> {
+            if(takeCoin(coinTwelveView)) {
+                coins.setText(""+numberOfCoins);
+            } else {
+                invalidSelectionText.setVisible(true);
             }
         });
 
@@ -154,7 +276,7 @@ public class NimApp extends Application {
     }
 
     private static boolean checkTurnStatus() {
-        if(numberOfCoins<4) return true;
+        if(numberOfCoins<3) return true;
         else return false;
     }
     private static void increaseNumberOfCoins() {
@@ -165,7 +287,18 @@ public class NimApp extends Application {
         numberOfCoins = 0;
     }
 
+    private static boolean takeCoin(ImageView imageView) {
+        if(checkTurnStatus()) {
+            imageView.setVisible(false);
+            increaseNumberOfCoins();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         Application.launch(args);
     }
+
 }

@@ -41,7 +41,7 @@ public class NimGame {
             if (nextCoinPosition != 11) {
                 ++nextCoinPosition;
             } else {
-                //System.out.println("The Computer has won the game!");
+                System.out.println("The Computer has won the game!");
                 isGameOver = true;
             }
         } else {
@@ -90,9 +90,8 @@ public class NimGame {
                 System.out.println("The Computer has taken 1 coin.");
                 break;
             default:
-                numberOfCoins = 4;
                 removeCoins(numberOfCoins);
-                System.out.println("The Computer decided to cheat and took 4 coins.");
+                System.out.println("The Computer took no coins.");
                 break;
         }
         aiCounter = 0;
