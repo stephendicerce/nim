@@ -15,7 +15,9 @@ import java.util.List;
 
 public class NimApp extends Application {
 
-    static int numberOfCoins = 0;
+    private static int numberOfCoins = 0;
+    private static boolean newGameNeeded = false;
+    static NimGame game;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -25,7 +27,7 @@ public class NimApp extends Application {
 
         //One Player Scene----------------------------------------------------------------------------------------------
 
-        NimGame game = new NimGame();
+        game = new NimGame();
         //images for the user and AI
         Image userImage = new Image("/images/user_image.png", 100, 100, false, true);
         Image aiImage = new Image("/images/ai_image.jpg", 100, 100, false, true);
@@ -60,19 +62,6 @@ public class NimApp extends Application {
         ImageView coinElevenView = new ImageView(coinEleven);
         ImageView coinTwelveView = new ImageView(coinTwelve);
 
-        List<ImageView> coinsList = new ArrayList<>();
-        coinsList.add(coinOneView);
-        coinsList.add(coinTwoView);
-        coinsList.add(coinThreeView);
-        coinsList.add(coinFourView);
-        coinsList.add(coinFiveView);
-        coinsList.add(coinSixView);
-        coinsList.add(coinSevenView);
-        coinsList.add(coinEightView);
-        coinsList.add(coinNineView);
-        coinsList.add(coinTenView);
-        coinsList.add(coinElevenView);
-        coinsList.add(coinTwelveView);
 
         //buttons
         Button endTurnButton = new Button("End Turn");
@@ -104,41 +93,65 @@ public class NimApp extends Application {
 
         //button actions
         endTurnButton.setOnAction(event -> {
-            game.removeCoins(numberOfCoins);
-            int aiCoins = game.aiTurn();
+            if(!getNewGameNeeded()) {
+                game.removeCoins(numberOfCoins);
+                int aiCoins = game.aiTurn();
 
-            for(int i=0; i<aiCoins; ++i) {
-                if(coinOneView.isVisible())
-                    coinOneView.setVisible(false);
-                else if(coinTwoView.isVisible())
-                    coinTwoView.setVisible(false);
-                else if(coinThreeView.isVisible())
-                    coinThreeView.setVisible(false);
-                else if(coinFourView.isVisible())
-                    coinFourView.setVisible(false);
-                else if(coinFiveView.isVisible())
-                    coinFiveView.setVisible(false);
-                else if(coinSixView.isVisible())
-                    coinSixView.setVisible(false);
-                else if(coinSevenView.isVisible())
-                    coinSevenView.setVisible(false);
-                else if(coinEightView.isVisible())
-                    coinEightView.setVisible(false);
-                else if(coinNineView.isVisible())
-                    coinNineView.setVisible(false);
-                else if(coinTenView.isVisible())
-                    coinTenView.setVisible(false);
-                else if(coinElevenView.isVisible())
-                    coinElevenView.setVisible(false);
-                else if(coinTwelveView.isVisible())
-                    coinTwelveView.setVisible(false);
+                for (int i = 0; i < aiCoins; ++i) {
+                    if (coinOneView.isVisible())
+                        coinOneView.setVisible(false);
+                    else if (coinTwoView.isVisible())
+                        coinTwoView.setVisible(false);
+                    else if (coinThreeView.isVisible())
+                        coinThreeView.setVisible(false);
+                    else if (coinFourView.isVisible())
+                        coinFourView.setVisible(false);
+                    else if (coinFiveView.isVisible())
+                        coinFiveView.setVisible(false);
+                    else if (coinSixView.isVisible())
+                        coinSixView.setVisible(false);
+                    else if (coinSevenView.isVisible())
+                        coinSevenView.setVisible(false);
+                    else if (coinEightView.isVisible())
+                        coinEightView.setVisible(false);
+                    else if (coinNineView.isVisible())
+                        coinNineView.setVisible(false);
+                    else if (coinTenView.isVisible())
+                        coinTenView.setVisible(false);
+                    else if (coinElevenView.isVisible())
+                        coinElevenView.setVisible(false);
+                    else if (coinTwelveView.isVisible())
+                        coinTwelveView.setVisible(false);
+                }
+
+                resetNumberOfCoins();
+                coins.setText("" + numberOfCoins);
+                invalidSelectionText.setVisible(false);
+
+
+                if (game.getIsGameOver()) {
+                                                                            /** MAKE GAME OVER TEXT APPEAR*/
+                    toggleNewGameNeeded();
+                    endTurnButton.setText("Play Again");
+                }
+            } else {
+                game = new NimGame();
+                endTurnButton.setText("End Turn");
+                coinOneView.setVisible(true);
+                coinTwoView.setVisible(true);
+                coinThreeView.setVisible(true);
+                coinFourView.setVisible(true);
+                coinFiveView.setVisible(true);
+                coinSixView.setVisible(true);
+                coinSevenView.setVisible(true);
+                coinEightView.setVisible(true);
+                coinNineView.setVisible(true);
+                coinTenView.setVisible(true);
+                coinElevenView.setVisible(true);
+                coinTwelveView.setVisible(true);
+                toggleNewGameNeeded();
+
             }
-
-            resetNumberOfCoins();
-            coins.setText(""+numberOfCoins);
-            invalidSelectionText.setVisible(false);
-
-            //do end game 
         });
 
         //coin actions
@@ -285,6 +298,13 @@ public class NimApp extends Application {
 
     private static void resetNumberOfCoins() {
         numberOfCoins = 0;
+    }
+
+    private static boolean getNewGameNeeded() { return newGameNeeded; }
+
+    private static void toggleNewGameNeeded() {
+        if(newGameNeeded) newGameNeeded = false;
+        else newGameNeeded = true;
     }
 
     private static boolean takeCoin(ImageView imageView) {
