@@ -286,27 +286,50 @@ public class NimApp extends Application {
         primaryStage.setScene(welcomeScene);
 
         primaryStage.show();
-    }
+    }
 
+    /**
+     *
+     * @return
+     */
     private static boolean checkTurnStatus() {
         if(numberOfCoins<3) return true;
         else return false;
     }
+
+    /**
+     *
+     */
     private static void increaseNumberOfCoins() {
         ++numberOfCoins;
     }
 
+    /**
+     *
+     */
     private static void resetNumberOfCoins() {
         numberOfCoins = 0;
     }
 
+    /**
+     *
+     * @return
+     */
     private static boolean getNewGameNeeded() { return newGameNeeded; }
 
+    /**
+     *
+     */
     private static void toggleNewGameNeeded() {
         if(newGameNeeded) newGameNeeded = false;
         else newGameNeeded = true;
     }
 
+    /**
+     * 
+     * @param imageView
+     * @return
+     */
     private static boolean takeCoin(ImageView imageView) {
         if(checkTurnStatus()) {
             imageView.setVisible(false);
