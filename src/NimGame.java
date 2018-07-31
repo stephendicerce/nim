@@ -41,7 +41,6 @@ public class NimGame {
             if (nextCoinPosition != 11) {
                 ++nextCoinPosition;
             } else {
-                //System.out.println("The Computer has won the game!");
                 isGameOver = true;
             }
         } else {
