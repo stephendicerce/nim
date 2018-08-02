@@ -112,7 +112,7 @@ public class NimGame {
         System.out.println("|");
     }
 
-    void pause(){
+    void removeAICoin(){
         try{
             Thread.currentThread().sleep(1000);
         } catch(InterruptedException e) {

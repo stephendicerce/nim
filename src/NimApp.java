@@ -1,9 +1,15 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
+import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,24 +17,31 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.sun.tools.doclets.formats.html.markup.RawHtml.nbsp;
 
 public class NimApp extends Application {
 
     private static int numberOfCoins = 0;
     private static boolean newGameNeeded = false;
     static NimGame game;
+    static boolean isAITurn = false;
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Nim");
         Scene singlePlayerScene;
         int depth = 70;
+
+        //WELCOME SCREEN MENU
+        MenuBar menuBar = new MenuBar();
+
+        Menu menuFile = new Menu("File");
+
+        menuBar.getMenus().add(menuFile);
+        menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
+
 
 
         //One Player Scene----------------------------------------------------------------------------------------------
@@ -80,6 +93,13 @@ public class NimApp extends Application {
         userShadow.setWidth(depth);
         userShadow.setHeight(70);
 
+        DropShadow noShadow = new DropShadow();
+        noShadow.setColor(Color.BLACK);
+        noShadow.setOffsetY(0f);
+        noShadow.setOffsetX(0f);
+        noShadow.setWidth(0);
+        noShadow.setHeight(0);
+
         userImageView.setEffect(userShadow);
 
         Text numberOfCoinsText = new Text("Number Of Coins Taken:");
@@ -106,65 +126,98 @@ public class NimApp extends Application {
         singlePlayerBox.setAlignment(Pos.CENTER);
         textButtonContainerBox.setAlignment(Pos.CENTER);
 
+
+
         //button actions
         endTurnButton.setOnAction(event -> {
+            isAITurn = true;
             if (!getNewGameNeeded()) {
+                userImageView.setEffect(noShadow);
                 aiImageView.setEffect(userShadow);
+                invalidSelectionText.setVisible(false);
                 game.removeCoins(numberOfCoins);
                 int aiCoins = game.aiTurn();
 
-                resetNumberOfCoins();
-                for (int i = 0; i < aiCoins; ++i) {
-                    increaseNumberOfCoins();
-                    coins.setText(""+numberOfCoins);
 
-                    if (coinOneView.isVisible()) {
-                        coinOneView.setVisible(false);
-                    } else if (coinTwoView.isVisible()) {
-                        coinTwoView.setVisible(false);
-                    } else if (coinThreeView.isVisible()) {
-                        coinThreeView.setVisible(false);
-                    } else if (coinFourView.isVisible()) {
-                        coinFourView.setVisible(false);
-                    } else if (coinFiveView.isVisible()) {
-                        coinFiveView.setVisible(false);
-                    } else if (coinSixView.isVisible()) {
-                        coinSixView.setVisible(false);
-                    } else if (coinSevenView.isVisible()) {
-                        coinSevenView.setVisible(false);
-                    } else if (coinEightView.isVisible()) {
-                        coinEightView.setVisible(false);
-                    } else if (coinNineView.isVisible()) {
-                        coinNineView.setVisible(false);
-                    } else if (coinTenView.isVisible()) {
-                        coinTenView.setVisible(false);
-                    } else if (coinElevenView.isVisible()) {
-                        coinElevenView.setVisible(false);
-                    } else if (coinTwelveView.isVisible()) {
-                        coinTwelveView.setVisible(false);
-                    }
-                    try {
-                        Thread thread = new Thread();
-                        thread.sleep(1000);
-                    } catch(InterruptedException e) {
-                        System.out.println("EXCEPTION");
-                    }
-                }
+                Timeline removeCoinsTimeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+                    private int i=0;
 
-                resetNumberOfCoins();
-                coins.setText("" + numberOfCoins);
-                invalidSelectionText.setVisible(false);
+                    @Override
+                    public void handle(ActionEvent event) {
+                        if (i < aiCoins) {
+                            System.out.println("i= " + i);
+                            if (i == 0) {
+
+                                System.out.println("inside initial reset");
+                                resetNumberOfCoins();
+
+                            }
+                            aiImageView.setEffect(userShadow);
+                            userImageView.setEffect(noShadow);
+                            coins.setText("" + numberOfCoins);
+                            increaseNumberOfCoins();
+                            coins.setText("" + numberOfCoins);
+
+                            if (coinOneView.isVisible()) {
+                                coinOneView.setVisible(false);
+                            } else if (coinTwoView.isVisible()) {
+                                coinTwoView.setVisible(false);
+                            } else if (coinThreeView.isVisible()) {
+                                coinThreeView.setVisible(false);
+                            } else if (coinFourView.isVisible()) {
+                                coinFourView.setVisible(false);
+                            } else if (coinFiveView.isVisible()) {
+                                coinFiveView.setVisible(false);
+                            } else if (coinSixView.isVisible()) {
+                                coinSixView.setVisible(false);
+                            } else if (coinSevenView.isVisible()) {
+                                coinSevenView.setVisible(false);
+                            } else if (coinEightView.isVisible()) {
+                                coinEightView.setVisible(false);
+                            } else if (coinNineView.isVisible()) {
+                                coinNineView.setVisible(false);
+                            } else if (coinTenView.isVisible()) {
+                                coinTenView.setVisible(false);
+                            } else if (coinElevenView.isVisible()) {
+                                coinElevenView.setVisible(false);
+                            } else if (coinTwelveView.isVisible()) {
+                                coinTwelveView.setVisible(false);
+                            }
+                            System.out.println("Took a coin");
+                            if (i == (aiCoins-1)) {
+                                System.out.println("coins taken: " + numberOfCoins);
+                                coins.setText("" + numberOfCoins);
+
+                            }
+                        }
+                        if(i==aiCoins){
+                            resetNumberOfCoins();
+                            coins.setText(""+numberOfCoins);
+                            userImageView.setEffect(userShadow);
+                            aiImageView.setEffect(noShadow);
+                            isAITurn = false;
+                        }
+                        ++i;
+                    }
+                }));
+                removeCoinsTimeline.setCycleCount(aiCoins+1);
+                removeCoinsTimeline.play();
+
+
+
 
 
                 if (game.getIsGameOver()) {
                     /** MAKE GAME OVER TEXT APPEAR*/
+                    invalidSelectionText.setText("GAME OVER!");
+                    invalidSelectionText.setVisible(true);
                     toggleNewGameNeeded();
                     endTurnButton.setText("Play Again");
                 }
-                aiImageView.setEffect(null);
-                userImageView.setEffect(userShadow);
             } else {
                 game = new NimGame();
+                invalidSelectionText.setVisible(false);
+                invalidSelectionText.setText("You can only select between 1-3 coins");
                 endTurnButton.setText("End Turn");
                 coinOneView.setVisible(true);
                 coinTwoView.setVisible(true);
@@ -179,6 +232,7 @@ public class NimApp extends Application {
                 coinElevenView.setVisible(true);
                 coinTwelveView.setVisible(true);
                 toggleNewGameNeeded();
+                isAITurn = false;
 
             }
         });
@@ -280,8 +334,12 @@ public class NimApp extends Application {
             }
         });
 
+        BorderPane onePlayerRoot = new BorderPane();
 
-        singlePlayerScene = new Scene(singlePlayerBox, 800, 400);
+        onePlayerRoot.setTop(menuBar);
+        onePlayerRoot.setCenter(singlePlayerBox);
+
+        singlePlayerScene = new Scene(onePlayerRoot, 800, 400, Color.WHITE);
 
 
         //Two Player Scene----------------------------------------------------------------------------------------------
@@ -293,7 +351,7 @@ public class NimApp extends Application {
         Label welcomeLabel = new Label("Welcome to Nim");
         Button onePlayerButton = new Button("One Player");
         Button twoPlayerButton = new Button("Two Players");
-        Pane welcomePane = new Pane();
+        BorderPane root = new BorderPane();
         Image cornerImage = new Image("/images/coins_edited.jpg", true);
         ImageView cImageView = new ImageView(cornerImage);
 
@@ -310,7 +368,11 @@ public class NimApp extends Application {
 
         Image corneImage = new Image("/images/coins_edited.jpg");
 
-        Scene welcomeScene = new Scene(container, 400, 200);
+        Scene welcomeScene = new Scene(root, 400, 200, Color.WHITE);
+
+        root.setTop(menuBar);
+        root.setCenter(container);
+
         primaryStage.setScene(welcomeScene);
 
         primaryStage.show();
@@ -360,7 +422,8 @@ public class NimApp extends Application {
      * @return
      */
     private static boolean takeCoin(ImageView imageView) {
-        if(checkTurnStatus()) {
+
+        if(checkTurnStatus() && !isAITurn) {
             imageView.setVisible(false);
             increaseNumberOfCoins();
             return true;
