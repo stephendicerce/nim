@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,12 +36,7 @@ public class NimApp extends Application {
         int depth = 70;
 
         //WELCOME SCREEN MENU
-        MenuBar menuBar = new MenuBar();
 
-        Menu menuFile = new Menu("File");
-
-        menuBar.getMenus().add(menuFile);
-        menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
 
 
 
@@ -81,7 +77,6 @@ public class NimApp extends Application {
         ImageView coinElevenView = new ImageView(coinEleven);
         ImageView coinTwelveView = new ImageView(coinTwelve);
 
-
         //buttons
         Button endTurnButton = new Button("End Turn");
 
@@ -107,6 +102,25 @@ public class NimApp extends Application {
         coins.setText("" + numberOfCoins);
         Text invalidSelectionText = new Text("You can only select between 1-3 coins");
         invalidSelectionText.setVisible(false);
+
+        //menu
+        MenuBar menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        MenuItem backToWelcome = new MenuItem("Back to Welcome Screen"); // actions for this menu item can be found at the bottom of this method
+        MenuItem startOver = new MenuItem("Start Over");
+
+        startOver.setOnAction(event -> {
+            resetVisibility(coinOneView, coinTwoView, coinThreeView, coinFourView, coinFiveView, coinSixView, coinSevenView, coinEightView, coinNineView, coinTenView, coinElevenView, coinTwelveView, invalidSelectionText);
+            game = new NimGame();
+            resetNumberOfCoins();
+            coins.setText(""+numberOfCoins);
+        });
+
+        menuFile.getItems().addAll(backToWelcome, startOver);
+
+
+        menuBar.getMenus().add(menuFile);
+        menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
 
         //components positioning
         HBox avatarBox = new HBox(100, userImageView, aiImageView);
@@ -145,10 +159,10 @@ public class NimApp extends Application {
                     @Override
                     public void handle(ActionEvent event) {
                         if (i < aiCoins) {
-                            System.out.println("i= " + i);
+                            //System.out.println("i= " + i);
                             if (i == 0) {
 
-                                System.out.println("inside initial reset");
+                                //System.out.println("inside initial reset");
                                 resetNumberOfCoins();
 
                             }
@@ -183,9 +197,9 @@ public class NimApp extends Application {
                             } else if (coinTwelveView.isVisible()) {
                                 coinTwelveView.setVisible(false);
                             }
-                            System.out.println("Took a coin");
+                            //System.out.println("Took a coin");
                             if (i == (aiCoins-1)) {
-                                System.out.println("coins taken: " + numberOfCoins);
+                                //System.out.println("coins taken: " + numberOfCoins);
                                 coins.setText("" + numberOfCoins);
 
                             }
@@ -208,7 +222,6 @@ public class NimApp extends Application {
 
 
                 if (game.getIsGameOver()) {
-                    /** MAKE GAME OVER TEXT APPEAR*/
                     invalidSelectionText.setText("GAME OVER!");
                     invalidSelectionText.setVisible(true);
                     toggleNewGameNeeded();
@@ -339,11 +352,12 @@ public class NimApp extends Application {
         onePlayerRoot.setTop(menuBar);
         onePlayerRoot.setCenter(singlePlayerBox);
 
-        singlePlayerScene = new Scene(onePlayerRoot, 800, 400, Color.WHITE);
+        singlePlayerScene = new Scene(onePlayerRoot, 850, 450, Color.WHITE);
 
 
         //Two Player Scene----------------------------------------------------------------------------------------------
 
+        Image secondPlayerImage = new Image("/images/user_2_image.png");
 
         //Menu Scene----------------------------------------------------------------------------------------------------
 
@@ -370,8 +384,18 @@ public class NimApp extends Application {
 
         Scene welcomeScene = new Scene(root, 400, 200, Color.WHITE);
 
-        root.setTop(menuBar);
+        //root.setTop(menuBar);
         root.setCenter(container);
+
+
+        //menu functionality
+        backToWelcome.setOnAction(event -> {
+            primaryStage.setScene(welcomeScene);
+            game = new NimGame();
+            resetVisibility(coinOneView, coinTwoView, coinThreeView, coinFourView, coinFiveView, coinSixView, coinSevenView, coinEightView, coinNineView, coinTenView, coinElevenView, coinTwelveView, invalidSelectionText);
+            resetNumberOfCoins();
+            coins.setText(""+numberOfCoins);
+        });
 
         primaryStage.setScene(welcomeScene);
 
@@ -430,6 +454,23 @@ public class NimApp extends Application {
         } else {
             return false;
         }
+    }
+
+
+    private static void resetVisibility(ImageView coinOneView, ImageView coinTwoView, ImageView coinThreeView, ImageView coinFourView, ImageView coinFiveView, ImageView coinSixView, ImageView coinSevenView, ImageView coinEightView, ImageView coinNineView, ImageView coinTenView, ImageView coinElevenView, ImageView coinTwelveView, Text invalidSelectionText) {
+        coinOneView.setVisible(true);
+        coinTwoView.setVisible(true);
+        coinThreeView.setVisible(true);
+        coinFourView.setVisible(true);
+        coinFiveView.setVisible(true);
+        coinSixView.setVisible(true);
+        coinSevenView.setVisible(true);
+        coinEightView.setVisible(true);
+        coinNineView.setVisible(true);
+        coinTenView.setVisible(true);
+        coinElevenView.setVisible(true);
+        coinTwelveView.setVisible(true);
+        invalidSelectionText.setVisible(false);
     }
 
     public static void main(String[] args) {

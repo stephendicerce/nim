@@ -76,21 +76,21 @@ public class NimGame {
             case 1:
                 numberOfCoins = 3;
                 removeCoins(numberOfCoins);
-                System.out.println("The Computer has taken 3 coins.");
+                //System.out.println("The Computer has taken 3 coins.");
                 break;
             case 2:
                 numberOfCoins = 2;
                 removeCoins(numberOfCoins);
-                System.out.println("The Computer has taken 2 coins.");
+                //System.out.println("The Computer has taken 2 coins.");
                 break;
             case 3:
                 numberOfCoins = 1;
                 removeCoins(numberOfCoins);
-                System.out.println("The Computer has taken 1 coin.");
+                //System.out.println("The Computer has taken 1 coin.");
                 break;
             default:
                 removeCoins(numberOfCoins);
-                System.out.println("The Computer took no coins.");
+                //System.out.println("The Computer took no coins.");
                 break;
         }
         aiCounter = 0;
