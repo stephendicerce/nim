@@ -46,7 +46,6 @@ public class NimApp extends Application {
         //images for the user and AI
         Image userImage = new Image("/images/user_image.png", 100, 100, false, true);
         Image aiImage = new Image("/images/ai_image.jpg", 100, 100, false, true);
-
         Image coinOne = new Image("/images/coin.png", 50, 50, false, true);
         Image coinTwo = new Image("/images/coin.png", 50, 50, false, true);
         Image coinThree = new Image("/images/coin.png", 50, 50, false, true);
@@ -63,7 +62,6 @@ public class NimApp extends Application {
         //Image views for all images
         ImageView userImageView = new ImageView(userImage);
         ImageView aiImageView = new ImageView(aiImage);
-
         ImageView coinOneView = new ImageView(coinOne);
         ImageView coinTwoView = new ImageView(coinTwo);
         ImageView coinThreeView = new ImageView(coinThree);
@@ -356,8 +354,67 @@ public class NimApp extends Application {
 
 
         //Two Player Scene----------------------------------------------------------------------------------------------
+        game = new NimGame();
 
-        Image secondPlayerImage = new Image("/images/user_2_image.png");
+        //images
+        Image firstPlayerImage = new Image("/images/user_image.png", 100, 100, false, true);
+        Image secondPlayerImage = new Image("/images/user_2_image.png", 100, 100, false, true);
+        Image coin1 = new Image("images/coin.png", 50 , 50, false, true);
+        Image coin2 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin3 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin4 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin5 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin6 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin7 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin8 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin9 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin10 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin11 = new Image("images/coin.png", 50, 50, false, true);
+        Image coin12 = new Image("images/coin.png", 50, 50, false, true);
+
+
+
+        //image views
+        ImageView fpImageView = new ImageView(firstPlayerImage);
+        ImageView spImageView = new ImageView(secondPlayerImage);
+        ImageView coin1View = new ImageView(coin1);
+        ImageView coin2View = new ImageView(coin2);
+        ImageView coin3View = new ImageView(coin3);
+        ImageView coin4View = new ImageView(coin4);
+        ImageView coin5View = new ImageView(coin5);
+        ImageView coin6View = new ImageView(coin6);
+        ImageView coin7View = new ImageView(coin7);
+        ImageView coin8View = new ImageView(coin8);
+        ImageView coin9View = new ImageView(coin9);
+        ImageView coin10View = new ImageView(coin10);
+        ImageView coin11View = new ImageView(coin11);
+        ImageView coin12View = new ImageView(coin12);
+
+
+        //buttons
+        Button switchPlayerButton = new Button("End Turn");
+
+
+        //effects
+        DropShadow currentPlayerShadow = new DropShadow();
+        DropShadow hiddenShadow = new DropShadow();
+
+        currentPlayerShadow.setColor(Color.GREEN);
+        currentPlayerShadow.setHeight(70);
+        currentPlayerShadow.setWidth(70);
+        currentPlayerShadow.setOffsetX(0f);
+        currentPlayerShadow.setOffsetY(0f);
+
+        hiddenShadow.setColor(Color.WHITE);
+        hiddenShadow.setHeight(70);
+        hiddenShadow.setWidth(70);
+        hiddenShadow.setOffsetX(0f);
+        hiddenShadow.setOffsetY(0f);
+
+        //text
+        final Text numberOfCoinsCaption = new Text("Number of Coins Taken:");
+        Text amountOfCoins = new Text(""+numberOfCoins);
+
 
         //Menu Scene----------------------------------------------------------------------------------------------------
 
