@@ -33,6 +33,7 @@ public class NimApp extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Nim");
         Scene singlePlayerScene;
+        Scene multiplayerScene;
         int depth = 70;
 
         //WELCOME SCREEN MENU
@@ -414,6 +415,45 @@ public class NimApp extends Application {
         //text
         final Text numberOfCoinsCaption = new Text("Number of Coins Taken:");
         Text amountOfCoins = new Text(""+numberOfCoins);
+        Text checkAmountOfCoinsText = new Text("You can only select between 1-3 coins");
+        checkAmountOfCoinsText.setVisible(false);
+
+        //components
+        BorderPane twoPlayerBorderPane = new BorderPane();
+        HBox twoPlayerAvatarBox = new HBox(100, fpImageView, spImageView);
+        HBox numberOfCoinsBox = new HBox(5, numberOfCoinsCaption, amountOfCoins);
+        HBox multiPlayerButtonBox = new HBox(100, numberOfCoinsBox, switchPlayerButton);
+        VBox textButtonAndSituationalTextBox = new VBox(5, multiPlayerButtonBox, checkAmountOfCoinsText);
+        HBox coinRow1 = new HBox(50, coin1View, coin2View, coin3View, coin4View, coin5View, coin6View);
+        HBox coinRow2 = new HBox(50, coin7View, coin8View, coin9View, coin10View, coin11View, coin12View);
+        VBox coinContainer = new VBox(25, coinRow1, coinRow2);
+        VBox multiPlayerBox = new VBox(50, twoPlayerAvatarBox, textButtonAndSituationalTextBox, coinContainer);
+
+        twoPlayerAvatarBox.setAlignment(Pos.CENTER);
+        numberOfCoinsBox.setAlignment(Pos.CENTER);
+        multiPlayerButtonBox.setAlignment(Pos.CENTER);
+        textButtonAndSituationalTextBox.setAlignment(Pos.CENTER);
+        coinRow1.setAlignment(Pos.CENTER);
+        coinRow2.setAlignment(Pos.CENTER);
+        coinContainer.setAlignment(Pos.CENTER);
+        multiPlayerBox.setAlignment(Pos.CENTER);
+
+
+        //menu
+        MenuBar twoPlayerMenuBar = new MenuBar();
+        Menu twoPlayerFile = new Menu("File");
+        MenuItem twoPlayerBackToWelcome = new MenuItem("Back to Welcome Screen");
+        MenuItem twoPlayerStartOver = new MenuItem("Start Over");
+
+        twoPlayerFile.getItems().addAll(twoPlayerBackToWelcome, twoPlayerStartOver);
+        twoPlayerMenuBar.getMenus().addAll(twoPlayerFile);
+
+
+
+        twoPlayerBorderPane.setTop(twoPlayerMenuBar);
+        twoPlayerBorderPane.setCenter(multiPlayerBox);
+
+        multiplayerScene = new Scene(twoPlayerBorderPane, 850, 450, Color.AQUA);
 
 
         //Menu Scene----------------------------------------------------------------------------------------------------
@@ -436,6 +476,7 @@ public class NimApp extends Application {
 
         //adding actions to components
         onePlayerButton.setOnAction(e -> primaryStage.setScene(singlePlayerScene));
+        twoPlayerButton.setOnAction(event -> primaryStage.setScene(multiplayerScene));
 
         Image corneImage = new Image("/images/coins_edited.jpg");
 
@@ -452,6 +493,14 @@ public class NimApp extends Application {
             resetVisibility(coinOneView, coinTwoView, coinThreeView, coinFourView, coinFiveView, coinSixView, coinSevenView, coinEightView, coinNineView, coinTenView, coinElevenView, coinTwelveView, invalidSelectionText);
             resetNumberOfCoins();
             coins.setText(""+numberOfCoins);
+        });
+
+        twoPlayerBackToWelcome.setOnAction(event -> {
+            primaryStage.setScene(welcomeScene);
+            resetVisibility(coin1View, coin2View, coin3View, coin4View, coin5View, coin6View, coin7View, coin8View, coin9View, coin10View, coin11View, coin12View, checkAmountOfCoinsText);
+            resetNumberOfCoins();
+            amountOfCoins.setText(""+numberOfCoins);
+            game = new NimGame();
         });
 
         primaryStage.setScene(welcomeScene);
