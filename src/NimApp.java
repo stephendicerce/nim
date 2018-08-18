@@ -26,8 +26,8 @@ public class NimApp extends Application {
 
     private static int numberOfCoins = 0;
     private static boolean newGameNeeded = false;
-    static NimGame game;
-    static boolean isAITurn = false;
+    private static NimGame game;
+    private static boolean isAITurn = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -412,6 +412,9 @@ public class NimApp extends Application {
         hiddenShadow.setOffsetX(0f);
         hiddenShadow.setOffsetY(0f);
 
+        fpImageView.setEffect(currentPlayerShadow);
+        spImageView.setEffect(hiddenShadow);
+
         //text
         final Text numberOfCoinsCaption = new Text("Number of Coins Taken:");
         Text amountOfCoins = new Text(""+numberOfCoins);
@@ -452,6 +455,38 @@ public class NimApp extends Application {
 
         twoPlayerBorderPane.setTop(twoPlayerMenuBar);
         twoPlayerBorderPane.setCenter(multiPlayerBox);
+
+        //button actions
+
+        switchPlayerButton.setOnAction(event -> {
+            if(!getNewGameNeeded()) {
+                if(isAITurn) {
+                    fpImageView.setEffect(hiddenShadow);
+                    spImageView.setEffect(currentPlayerShadow);
+                } else {
+                    fpImageView.setEffect(currentPlayerShadow);
+                    spImageView.setEffect(hiddenShadow);
+                }
+
+                checkAmountOfCoinsText.setVisible(false);
+                game.removeCoins(numberOfCoins);
+                resetNumberOfCoins();
+
+
+                if(game.getIsGameOver()) {
+                    if(isAITurn) {
+                        checkAmountOfCoinsText.setText("GAME OVER! Player 2 Wins!");
+                    } else {
+                        checkAmountOfCoinsText.setText("GAME OVER! Player 1 Wins!");
+                    }
+                }
+
+                isAITurn ^= true;
+            } else {
+                game = new NimGame();
+
+            }
+        });
 
         multiplayerScene = new Scene(twoPlayerBorderPane, 850, 450, Color.AQUA);
 
